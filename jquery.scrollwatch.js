@@ -97,7 +97,10 @@
 					leave: null,
 
 				// Init function.
-					init: null
+					init: null,
+
+				// Scroll function.
+					scroll: null
 
 			}, userOptions);
 
@@ -216,6 +219,12 @@
 							}
 
 					}
+
+				// Call scroll function.
+					if (options.scroll)
+						(options.scroll).apply(_this, [
+							(vMiddle - eTop) / (eBottom - eTop)
+						]);
 
 			};
 
