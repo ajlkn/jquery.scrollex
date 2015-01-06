@@ -78,6 +78,13 @@
 
 			}
 
+		// Vars.
+			var $this = $(this);
+
+		// ID set? We're already scrollwatched.
+			if ($this.data('scrollwatch-id'))
+				return $this;
+
 		// Options.
 			var options = jQuery.extend({
 
@@ -96,8 +103,11 @@
 				// Leave function.
 					leave: null,
 
-				// Init function.
-					init: null,
+				// Initialize function.
+					initialize: null,
+
+				// Terminate function.
+					terminate: null,
 
 				// Scroll function.
 					scroll: null
@@ -105,8 +115,7 @@
 			}, userOptions);
 
 		// Vars.
-			var $this = $(this),
-				_this = this,
+			var	_this = this,
 				id, handler, stateTest;
 
 		// Set scrollwatch data.
@@ -231,9 +240,12 @@
 		// Add handler to queue.
 			queue[id] = handler;
 
-		// Call init.
-			if (options.init)
-				(options.init).apply(this);
+		// Add options to object.
+			this._scrollwatch = options;
+
+		// Call initialize.
+			if (options.initialize)
+				(options.initialize).apply(this);
 
 		return $this;
 
@@ -275,6 +287,13 @@
 
 		// Remove handler from queue.
 			delete queue[id];
+
+		// Call terminate.
+			if (this._scrollwatch.terminate)
+				(this._scrollwatch.terminate).apply(this);
+
+		// Delete options from object.
+			delete this._scrollwatch;
 
 		return $this;
 
