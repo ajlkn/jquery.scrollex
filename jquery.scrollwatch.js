@@ -47,8 +47,8 @@
 				var vTop = $window.scrollTop();
 
 			// Step through handler queue.
-				$.map(queue, function(f) {
-					(f)(vTop);
+				$.map(queue, function(o) {
+					(o.handler)(vTop);
 				});
 
 		})
@@ -64,9 +64,11 @@
 	 */
 	jQuery.fn.scrollwatch = function(userOptions) {
 
+		var $this = $(this);
+
 		// No elements?
 			if (this.length == 0)
-				return $(this);
+				return $this;
 
 		// Multiple elements?
 			if (this.length > 1) {
@@ -74,178 +76,183 @@
 				for (var i=0; i < this.length; i++)
 					$(this[i]).scrollwatch(userOptions);
 
-				return $(this);
-
-			}
-
-		// Vars.
-			var $this = $(this);
-
-		// ID set? We're already scrollwatched.
-			if ($this.data('scrollwatch-id'))
 				return $this;
 
-		// Options.
-			var options = jQuery.extend({
-
-				// Top.
-					top: 0,
-
-				// Bottom.
-					bottom: 0,
-
-				// Mode ('default', 'top', 'middle', 'bottom', 'top-only', 'bottom-only').
-					mode: 'default',
-
-				// Enter function.
-					enter: null,
-
-				// Leave function.
-					leave: null,
-
-				// Initialize function.
-					initialize: null,
-
-				// Terminate function.
-					terminate: null,
-
-				// Scroll function.
-					scroll: null
-
-			}, userOptions);
-
-		// Vars.
-			var	_this = this,
-				id, handler, stateTest;
-
-		// Set scrollwatch data.
-		 	id = ids++;
-
-			$this
-				.data('scrollwatch-id', id)
-				.data('scrollwatch-active', false);
-
-		// Build state test.
-			switch (options.mode) {
-
-				// top: Top viewport edge must fall within element boundaries.
-					case 'top':
-
-						stateTest = function(vTop, vMiddle, vBottom, eTop, eBottom) {
-							return (vTop >= eTop && vTop <= eBottom);
-						};
-
-						break;
-
-				// bottom: Bottom viewport edge must fall within element boundaries.
-					case 'bottom':
-
-						stateTest = function(vTop, vMiddle, vBottom, eTop, eBottom) {
-							return (vBottom >= eTop && vBottom <= eBottom);
-						};
-
-						break;
-
-				// middle: Midpoint between top/bottom viewport edges must fall within element boundaries.
-					case 'middle':
-
-						stateTest = function(vTop, vMiddle, vBottom, eTop, eBottom) {
-							return (vMiddle >= eTop && vMiddle <= eBottom);
-						};
-
-						break;
-
-				// top-only: Top viewport edge must be visible
-					case 'top-only':
-
-						stateTest = function(vTop, vMiddle, vBottom, eTop, eBottom) {
-							return (vTop <= eTop && eTop <= vBottom);
-						};
-
-						break;
-
-				// bottom-only: Bottom viewport edge must be visible
-					case 'bottom-only':
-
-						stateTest = function(vTop, vMiddle, vBottom, eTop, eBottom) {
-							return (vBottom >= eBottom && eBottom >= vTop);
-						};
-
-						break;
-
-				// default: Element boundaries must fall within the viewport.
-					default:
-					case 'default':
-
-						stateTest = function(vTop, vMiddle, vBottom, eTop, eBottom) {
-							return (vBottom >= eTop && vTop <= eBottom);
-						};
-
-						break;
-
 			}
 
-		// Build handler.
-			handler = function(vTop) {
+		// Already scrollwatched?
+			if ($this.data('_scrollwatchId'))
+				return $this;
 
-				var	currentState = $this.data('scrollwatch-active'),
-					newState = false,
-					offset = $this.offset(),
-					vHeight, vMiddle, vBottom,
-					eHeight, eTop, eBottom,
-					h;
+		// Vars.
+			var	id, options, test, handler, o;
 
-				// Viewport values.
-					vHeight = $window.height();
-					vMiddle = vTop + (vHeight / 2);
-					vBottom = vTop + vHeight;
+		// Build object.
 
-				// Element values.
-					eHeight = $this.outerHeight();
-					eTop = offset.top + resolve(options.top, eHeight, vHeight);
-					eBottom = (offset.top + eHeight) - resolve(options.bottom, eHeight, vHeight);
+			// ID.
+				id = ids++;
 
-				// Determine if there's been a state change.
-					newState = stateTest(vTop, vMiddle, vBottom, eTop, eBottom);
+			// Options.
+				options = jQuery.extend({
 
-					if (newState != currentState) {
+					// Top.
+						top: 0,
 
-						// Update state.
-							$this.data('scrollwatch-active', newState);
+					// Bottom.
+						bottom: 0,
 
-						// Call appropriate function.
-							if (newState) {
+					// Mode ('default', 'top', 'middle', 'bottom', 'top-only', 'bottom-only').
+						mode: 'default',
 
-								if (options.enter)
-									(options.enter).apply(_this);
+					// Enter function.
+						enter: null,
 
-							}
-							else {
+					// Leave function.
+						leave: null,
 
-								if (options.leave)
-									(options.leave).apply(_this);
+					// Initialize function.
+						initialize: null,
 
-							}
+					// Terminate function.
+						terminate: null,
 
-					}
+					// Scroll function.
+						scroll: null
 
-				// Call scroll function.
-					if (options.scroll)
-						(options.scroll).apply(_this, [
-							(vMiddle - eTop) / (eBottom - eTop)
-						]);
+				}, userOptions);
 
-			};
+			// Test.
+				switch (options.mode) {
 
-		// Add handler to queue.
-			queue[id] = handler;
+					// top: Top viewport edge must fall within element boundaries.
+						case 'top':
 
-		// Add options to object.
-			this._scrollwatch = options;
+							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
+								return (vTop >= eTop && vTop <= eBottom);
+							};
+
+							break;
+
+					// bottom: Bottom viewport edge must fall within element boundaries.
+						case 'bottom':
+
+							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
+								return (vBottom >= eTop && vBottom <= eBottom);
+							};
+
+							break;
+
+					// middle: Midpoint between top/bottom viewport edges must fall within element boundaries.
+						case 'middle':
+
+							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
+								return (vMiddle >= eTop && vMiddle <= eBottom);
+							};
+
+							break;
+
+					// top-only: Top viewport edge must be visible
+						case 'top-only':
+
+							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
+								return (vTop <= eTop && eTop <= vBottom);
+							};
+
+							break;
+
+					// bottom-only: Bottom viewport edge must be visible
+						case 'bottom-only':
+
+							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
+								return (vBottom >= eBottom && eBottom >= vTop);
+							};
+
+							break;
+
+					// default: Element boundaries must fall within the viewport.
+						default:
+						case 'default':
+
+							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
+								return (vBottom >= eTop && vTop <= eBottom);
+							};
+
+							break;
+
+				}
+
+			// Handler.
+				handler = function(vTop) {
+
+					var	currentState = this.state,
+						newState = false,
+						offset = this.$element.offset(),
+						vHeight, vMiddle, vBottom,
+						eHeight, eTop, eBottom,
+						h;
+
+					// Viewport values.
+						vHeight = $window.height();
+						vMiddle = vTop + (vHeight / 2);
+						vBottom = vTop + vHeight;
+
+					// Element values.
+						eHeight = this.$element.outerHeight();
+						eTop = offset.top + resolve(this.options.top, eHeight, vHeight);
+						eBottom = (offset.top + eHeight) - resolve(this.options.bottom, eHeight, vHeight);
+
+					// Determine if there's been a state change.
+						newState = this.test(vTop, vMiddle, vBottom, eTop, eBottom);
+
+						if (newState != currentState) {
+
+							// Update state.
+								this.state = newState;
+
+							// Call appropriate function.
+								if (newState) {
+
+									if (this.options.enter)
+										(this.options.enter).apply(this.element);
+
+								}
+								else {
+
+									if (this.options.leave)
+										(this.options.leave).apply(this.element);
+
+								}
+
+						}
+
+					// Call scroll function.
+						if (this.options.scroll)
+							(this.options.scroll).apply(this.element, [
+								(vMiddle - eTop) / (eBottom - eTop)
+							]);
+
+				};
+
+			// Object.
+				o = {
+					id: id,
+					options: options,
+					test: test,
+					handler: handler,
+					state: false,
+					element: this,
+					$element: $this
+				};
+
+		// Add object to queue.
+			queue[id] = o;
+
+		// Add scrollwatch ID to element.
+			$this.data('_scrollwatchId', o.id);
 
 		// Call initialize.
-			if (options.initialize)
-				(options.initialize).apply(this);
+			if (o.options.initialize)
+				(o.options.initialize).apply(this);
 
 		return $this;
 
@@ -258,42 +265,43 @@
 	 */
 	jQuery.fn.unscrollwatch = function() {
 
+		var $this = $(this);
+
 		// No elements?
 			if (this.length == 0)
-				return $(this);
+				return $this;
 
 		// Multiple elements?
 			if (this.length > 1) {
 
 				for (var i=0; i < this.length; i++)
-					$(this[i]).scrollwatch();
+					$(this[i]).unscrollwatch();
 
-				return $(this);
+				return $this;
 
 			}
 
 		// Vars.
-			var $this = $(this),
-				id = $this.data('scrollwatch-id');
+			var id, o;
 
-		// ID not set? We're not scrollwatched.
+		// Not scrollwatched?
+			id = $this.data('_scrollwatchId');
+
 			if (!id)
 				return $this;
 
-		// Clear scrollwatch data.
-			$this
-				.removeData('scrollwatch-id')
-				.removeData('scrollwatch-active');
+		// Get object from queue.
+			o = queue[id];
 
-		// Remove handler from queue.
+		// Remove object from queue.
 			delete queue[id];
 
-		// Call terminate.
-			if (this._scrollwatch.terminate)
-				(this._scrollwatch.terminate).apply(this);
+		// Remove scrollwatch ID from element.
+			$this.removeData('_scrollwatchId');
 
-		// Delete options from object.
-			delete this._scrollwatch;
+		// Call terminate.
+			if (o.options.terminate)
+				(o.options.terminate).apply(this);
 
 		return $this;
 
