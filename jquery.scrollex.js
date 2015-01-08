@@ -1,4 +1,4 @@
-/* jquery.scrollwatch vx.x.x | (c) n33 | n33.co @n33co | MIT */
+/* jquery.scrollex vx.x.x | (c) n33 | n33.co @n33co | MIT */
 
 (function($) {
 
@@ -57,12 +57,12 @@
 		});
 
 	/**
-	 * Activates scrollwatch on an element.
+	 * Activates scrollex on an element.
 	 *
 	 * @param {object} userOptions Options.
 	 * @return {jQuery} jQuery object.
 	 */
-	jQuery.fn.scrollwatch = function(userOptions) {
+	jQuery.fn.scrollex = function(userOptions) {
 
 		var $this = $(this);
 
@@ -74,14 +74,14 @@
 			if (this.length > 1) {
 
 				for (var i=0; i < this.length; i++)
-					$(this[i]).scrollwatch(userOptions);
+					$(this[i]).scrollex(userOptions);
 
 				return $this;
 
 			}
 
-		// Already scrollwatched?
-			if ($this.data('_scrollwatchId'))
+		// Already scrollexed?
+			if ($this.data('_scrollexId'))
 				return $this;
 
 		// Vars.
@@ -124,7 +124,7 @@
 			// Test.
 				switch (options.mode) {
 
-					// top: Top viewport edge must fall within element boundaries.
+					// top: Top viewport edge must fall within element's contact area.
 						case 'top':
 
 							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
@@ -133,7 +133,7 @@
 
 							break;
 
-					// bottom: Bottom viewport edge must fall within element boundaries.
+					// bottom: Bottom viewport edge must fall within element's contact area.
 						case 'bottom':
 
 							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
@@ -142,7 +142,7 @@
 
 							break;
 
-					// middle: Midpoint between top/bottom viewport edges must fall within element boundaries.
+					// middle: Midpoint between top/bottom viewport edges must fall within element's contact area.
 						case 'middle':
 
 							test = function(vTop, vMiddle, vBottom, eTop, eBottom) {
@@ -169,7 +169,7 @@
 
 							break;
 
-					// default: Element boundaries must fall within the viewport.
+					// default: Element's contact area must fall within the viewport.
 						default:
 						case 'default':
 
@@ -247,8 +247,8 @@
 		// Add object to queue.
 			queue[id] = o;
 
-		// Add scrollwatch ID to element.
-			$this.data('_scrollwatchId', o.id);
+		// Add scrollex ID to element.
+			$this.data('_scrollexId', o.id);
 
 		// Call initialize.
 			if (o.options.initialize)
@@ -259,11 +259,11 @@
 	};
 
 	/**
-	 * Deactivates scrollwatch on an element.
+	 * Deactivates scrollex on an element.
 	 *
 	 * @return {jQuery} jQuery object.
 	 */
-	jQuery.fn.unscrollwatch = function() {
+	jQuery.fn.unscrollex = function() {
 
 		var $this = $(this);
 
@@ -275,7 +275,7 @@
 			if (this.length > 1) {
 
 				for (var i=0; i < this.length; i++)
-					$(this[i]).unscrollwatch();
+					$(this[i]).unscrollex();
 
 				return $this;
 
@@ -284,8 +284,8 @@
 		// Vars.
 			var id, o;
 
-		// Not scrollwatched?
-			id = $this.data('_scrollwatchId');
+		// Not scrollexed?
+			id = $this.data('_scrollexId');
 
 			if (!id)
 				return $this;
@@ -296,8 +296,8 @@
 		// Remove object from queue.
 			delete queue[id];
 
-		// Remove scrollwatch ID from element.
-			$this.removeData('_scrollwatchId');
+		// Remove scrollex ID from element.
+			$this.removeData('_scrollexId');
 
 		// Call terminate.
 			if (o.options.terminate)
