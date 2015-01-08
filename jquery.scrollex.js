@@ -1,4 +1,4 @@
-/* jquery.scrollex vx.x.x | (c) n33 | n33.co @n33co | MIT */
+/* jquery.scrollex v0.1.0 | (c) n33 | n33.co @n33co | MIT */
 
 (function($) {
 
