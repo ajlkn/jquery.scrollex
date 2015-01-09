@@ -102,7 +102,7 @@ $(function() {
 ## Configuration Reference
 
 Name         | Type                | Default   | Description
--------------|---------------------|---------------------------------------
+-------------|---------------------|-----------|---------------------------
 `enter`      | `function`          | `null`    | **Enter** event.
 `leave`      | `function`          | `null`    | **Leave** event.
 `initialize` | `function`          | `null`    | **Initialize** event.

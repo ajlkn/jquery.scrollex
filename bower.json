@@ -1,6 +1,6 @@
 {
 	"name": "jquery.scrollex",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Nifty scroll events for jQuery.",
 	"keywords": [ "jquery", "scroll", "scrolling" ],
 	"homepage": "http://n33.co",
