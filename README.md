@@ -101,16 +101,17 @@ $(function() {
 
 ## Configuration Reference
 
-Name         | Type                | Description
+Name         | Type                | Default   | Description
 -------------|---------------------|---------------------------------------
-`enter`      | `function`          | **Enter** event.
-`leave`      | `function`          | **Leave** event.
-`initialize` | `function`          | **Initialize** event.
-`terminate`  | `function`          | **Terminate** event.
-`scroll`     | `function`          | **Scroll** event.
-`mode`       | `string`            | Mode (`default`, `top`, `bottom`, or `middle`).
-`top`        | `integer`, `string` | Top padding (in `px`, `%`, `vh`).
-`bottom`     | `integer`, `string` | Bottom padding (in `px`, `%`, or `vh`).
+`enter`      | `function`          | `null`    | **Enter** event.
+`leave`      | `function`          | `null`    | **Leave** event.
+`initialize` | `function`          | `null`    | **Initialize** event.
+`terminate`  | `function`          | `null`    | **Terminate** event.
+`scroll`     | `function`          | `null`    | **Scroll** event.
+`mode`       | `string`            | `default` | Mode (`default`, `top`, `bottom`, or `middle`).
+`top`        | `integer`, `string` | `0`       | Top padding (in pixels, `%`, `vh`).
+`bottom`     | `integer`, `string` | `0`       | Bottom padding (in pixels, `%`, or `vh`).
+`delay`      | `integer`           | `0`       | Delay (in ms) between position checks.
 
 ## License
 
