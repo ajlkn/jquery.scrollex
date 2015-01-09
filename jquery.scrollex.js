@@ -48,7 +48,15 @@
 
 			// Step through handler queue.
 				$.map(queue, function(o) {
-					(o.handler)(vTop);
+
+					// Clear existing timeout.
+						window.clearTimeout(o.timeoutId);
+
+					// Call handler after timeout delay.
+						o.timeoutId = window.setTimeout(function() {
+							(o.handler)(vTop);
+						}, o.options.delay);
+
 				});
 
 		})
@@ -100,6 +108,9 @@
 
 					// Bottom.
 						bottom: 0,
+
+					// Delay.
+						delay: 0,
 
 					// Mode ('default', 'top', 'middle', 'bottom', 'top-only', 'bottom-only').
 						mode: 'default',
@@ -241,7 +252,8 @@
 					handler: handler,
 					state: false,
 					element: this,
-					$element: $this
+					$element: $this,
+					timeoutId: null
 				};
 
 		// Add object to queue.
@@ -292,6 +304,9 @@
 
 		// Get object from queue.
 			o = queue[id];
+
+		// Clear timeout.
+			window.clearTimeout(o.timeoutId);
 
 		// Remove object from queue.
 			delete queue[id];
