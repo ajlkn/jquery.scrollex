@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Scrollex Demo: Scroll</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="viewport" content="width=1024" />
+		<link rel="stylesheet" href="common.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="common.js"></script>
+		<script src="../jquery.scrollex.js"></script>
+		<style>
+
+			html, body {
+				height: 100%;
+			}
+
+			#main {
+				height: 100%;
+				padding: 0;
+			}
+
+			.item {
+				position: relative;
+				height: 100%;
+				text-align: center;
+			}
+
+				.item:before {
+					content: '';
+					display: inline-block;
+					height: 100%;
+					vertical-align: middle;
+				}
+
+				.item .container {
+					display: inline-block;
+					vertical-align: middle;
+					-moz-perspective: 900px;
+					-webkit-perspective: 900px;
+					-o-perspective: 900px;
+					-ms-perspective: 900px;
+					perspective: 900px;
+				}
+
+					.item .container > :last-child {
+						margin-bottom: 0;
+					}
+
+					.item .container .title {
+						display: inline-block;
+						background: #fff;
+						padding: 0.5em 1em;
+						border-radius: 0.25em;
+						font-size: 2.5em;
+						margin: 0 0 1.5em 0;
+						-moz-transform-origin: 50% 50%;
+						-webkit-transform-origin: 50% 50%;
+						-o-transform-origin: 50% 50%;
+						-ms-transform-origin: 50% 50%;
+						transform-origin: 50% 50%;
+					}
+
+					.item .container p {
+						font-size: 1.5em;
+						line-height: 1.5em;
+						margin: 0;
+					}
+
+				.item .next {
+					position: absolute;
+					bottom: 2.5em;
+					left: 50%;
+					width: 5em;
+					height: 5em;
+					margin-left: -2.5em;
+					line-height: 5em;
+					border-radius: 100%;
+					color: #fff;
+					text-decoration: none;
+					border: solid 1px #fff;
+				}
+
+			#header {
+			}
+
+				#header .title {
+					color: #2A2D3C;
+				}
+
+			#one {
+				background-color: #03A081;
+			}
+
+				#one .title {
+					color: #03A081;
+				}
+
+			#two {
+				background-color: #3B8DAF;
+			}
+
+				#two .title {
+					color: #3B8DAF;
+				}
+
+			#three {
+				background-color: #7B70B2;
+			}
+
+				#three .title {
+					color: #7B70B2;
+				}
+
+			#four {
+				background-color: #D6628E;
+			}
+
+				#four .title {
+					color: #D6628E;
+				}
+
+		</style>
+		<script>
+
+			/* jquery.scrolly v0.1 | (c) n33 | n33.co @n33co | MIT */
+			(function(e){var t="click.scrolly";e.fn.scrolly=function(r,i){var s=e(this);return r||(r=1e3),i||(i=0),s.off(t).on(t,function(t){var n,s,o,u=e(this),a=u.attr("href");a.charAt(0)=="#"&&a.length>1&&(n=e(a)).length>0&&(s=n.offset().top,u.hasClass("scrolly-centered")?o=s-(e(window).height()-n.outerHeight())/2:(o=Math.max(s,0),i&&(typeof i=="function"?o-=i():o-=i)),t.preventDefault(),e("body,html").stop().animate({scrollTop:o},r,"swing"))}),s}})(jQuery);
+
+			$(function() {
+
+				$('.item').scrollex({
+
+					// Scroll event: Perform various CSS tweaks based on the user's progress through this element.
+						scroll: function(progress) {
+
+							var $this = $(this),
+								$container = $this.find('.container'),
+								$title = $this.find('.title'),
+								$p = $this.find('p'),
+								$next = $this.find('.next'),
+								x;
+
+							// Title.
+
+								// Rotation.
+									x = (progress - 0.5) * 540;
+
+									$title
+										.css('-moz-transform', 'rotateX(' + x + 'deg)')
+										.css('-webkit-transform', 'rotateX(' + x + 'deg)')
+										.css('-o-transform', 'rotateX(' + x + 'deg)')
+										.css('-ms-transform', 'rotateX(' + x + 'deg)')
+										.css('transform', 'rotateX(' + x + 'deg)');
+
+								// Opacity.
+									if (progress > 0.5)
+										x = 1 - progress;
+									else
+										x = progress;
+
+									x = Math.max(0, Math.min(1, x * 2));
+
+									$title.css('opacity', x);
+
+							// Paragraph.
+
+								// Opacity.
+									if (progress > 0.5)
+										x = 1 - progress;
+									else
+										x = progress;
+
+									x = Math.max(0, Math.min(1, x * 2));
+
+									$p.css('opacity', x);
+
+							// Next.
+
+								// Opacity.
+									x = 1 - (Math.max(0, progress - 0.5) * 1.5);
+
+									$next.css('opacity', x)
+
+								// Scale.
+									x = 1 - (Math.max(0, progress - 0.5));
+
+									$next
+										.css('-moz-transform', 'scale(' + x + ')')
+										.css('-webkit-transform', 'scale(' + x + ')')
+										.css('-o-transform', 'scale(' + x + ')')
+										.css('-ms-transform', 'scale(' + x + ')')
+										.css('transform', 'scale(' + x + ')');
+
+								// Scrolly.
+									$next.scrolly(3000);
+
+						}
+
+				});
+
+			});
+
+		</script>
+	</head>
+	<body>
+		<div id="main">
+
+			<!-- Header -->
+				<header class="item" id="header">
+					<div class="container">
+						<h1 class="title">Scrollex Demo: Scroll</h1>
+						<p>Animated content as user scrolls.</p>
+					</div>
+					<a href="#one" class="next">Start</a>
+				</header>
+
+			<!-- Items -->
+				<section class="item" id="one">
+					<div class="container">
+						<h2 class="title">Item One</h2>
+						<p>Amet vis lobortis vis blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis Arcu donec vitae. Eleifend aliquam lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus.</p>
+					</div>
+					<a href="#two" class="next">Next</a>
+				</section>
+
+				<section class="item" id="two">
+					<div class="container">
+						<h2 class="title">Item Two</h2>
+						<p>Amet vis lobortis vis blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis Arcu donec vitae. Eleifend aliquam lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus.</p>
+					</div>
+					<a href="#three" class="next">Next</a>
+				</section>
+
+				<section class="item" id="three">
+					<div class="container">
+						<h2 class="title">Item Three</h2>
+						<p>Amet vis lobortis vis blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis Arcu donec vitae. Eleifend aliquam lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus.</p>
+					</div>
+					<a href="#four" class="next">Next</a>
+				</section>
+
+				<section class="item" id="four">
+					<div class="container">
+						<h2 class="title">Item Four</h2>
+						<p>Amet vis lobortis vis blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis Arcu donec vitae. Eleifend aliquam lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus.</p>
+					</div>
+					<a href="#header" class="next">Top</a>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					&copy; n33. <a href="http://github.com/n33/jquery.scrollex">MIT licensed</a>.
+				</footer>
+
+		</div>
+	</body>
+</html>

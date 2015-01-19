@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Scrollex Demo: Enter/Leave</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="viewport" content="width=1024" />
+		<link rel="stylesheet" href="common.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="common.js"></script>
+		<script src="../jquery.scrollex.js"></script>
+		<style>
+
+			.item {
+				border-radius: 6px;
+				box-shadow: 0 0 0 3px #03A081;
+				padding: 2em;
+				transition: box-shadow 0.25s ease, opacity 0.25s ease;
+			}
+
+				.item > :last-child {
+					margin-bottom: 0;
+				}
+
+				.item.inactive {
+					box-shadow: none !important;
+					opacity: 0.25;
+				}
+
+		</style>
+		<script>
+
+			$(function() {
+
+				$('.item').scrollex({
+
+					// Mode: Sets Scrollex to 'middle' mode (= midpoint between top/bottom edges must fall within contact area).
+						mode: 'middle',
+
+					// Initialize event: Add the 'inactive' class to this element as soon as Scrollex is initialized.
+						initialize: function() {
+							$(this).addClass('inactive');
+						},
+
+					// Enter event: Remove the 'inactive' class from this element.
+						enter: function() {
+							$(this).removeClass('inactive');
+						},
+
+					// Leave event: Apply the 'inactive' class to this element.
+						leave: function() {
+							$(this).addClass('inactive');
+						}
+
+				});
+
+			});
+
+		</script>
+	</head>
+	<body>
+		<div id="main" class="container">
+
+			<!-- Header -->
+				<header id="header">
+					<h1>Scrollex Demo: Enter/Leave</h1>
+					<p>Outlines and highlights the visible item.</p>
+				</header>
+
+			<!-- Items -->
+				<section class="item">
+					<h2>Item One</h2>
+					<p>Amet vis lobortis vis. Accumsan adipiscing ac a. Blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis adipiscing integer faucibus nisl adipiscing vestibulum ac mi lobortis vis morbi nisi adipiscing nascetur vis ante mi adipiscing tempus erat nunc. Arcu donec vitae. Eleifend aliquam ante odio accumsan ut lorem lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus ac adipiscing praesent faucibus accumsan mi lobortis praesent praesent nibh orci.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+					<p>Enim accumsan morbi ante accumsan lorem placerat lacinia penatibus commodo ac accumsan enim adipiscing eu nibh vis augue. Aliquam adipiscing semper ut mi lobortis nunc ac praesent accumsan. Commodo placerat amet enim commodo. Amet accumsan accumsan. Risus placerat non ac adipiscing accumsan aliquet lobortis ante laoreet accumsan enim quam. Interdum condimentum aliquet lorem tempus accumsan. Accumsan blandit ut integer ante amet nunc ac ultricies ac ac adipiscing adipiscing non integer placerat justo. Semper faucibus faucibus nunc praesent. Blandit commodo in col. Iaculis aliquet ac. Ultricies orci cubilia neque massa aliquet. Faucibus ac commodo sapien massa orci enim vitae lacus accumsan commodo at. Neque a adipiscing commodo integer lobortis erat ac. Ac aliquam gravida commodo posuere adipiscing non ante non massa nascetur. Risus in ante accumsan eu. Non morbi.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+				</section>
+
+				<section class="item">
+					<h2>Item Two</h2>
+					<p>Amet vis lobortis vis. Accumsan adipiscing ac a. Blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis adipiscing integer faucibus nisl adipiscing vestibulum ac mi lobortis vis morbi nisi adipiscing nascetur vis ante mi adipiscing tempus erat nunc. Arcu donec vitae. Eleifend aliquam ante odio accumsan ut lorem lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus ac adipiscing praesent faucibus accumsan mi lobortis praesent praesent nibh orci.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+					<p>Enim accumsan morbi ante accumsan lorem placerat lacinia penatibus commodo ac accumsan enim adipiscing eu nibh vis augue. Aliquam adipiscing semper ut mi lobortis nunc ac praesent accumsan. Commodo placerat amet enim commodo. Amet accumsan accumsan. Risus placerat non ac adipiscing accumsan aliquet lobortis ante laoreet accumsan enim quam. Interdum condimentum aliquet lorem tempus accumsan. Accumsan blandit ut integer ante amet nunc ac ultricies ac ac adipiscing adipiscing non integer placerat justo. Semper faucibus faucibus nunc praesent. Blandit commodo in col. Iaculis aliquet ac. Ultricies orci cubilia neque massa aliquet. Faucibus ac commodo sapien massa orci enim vitae lacus accumsan commodo at. Neque a adipiscing commodo integer lobortis erat ac. Ac aliquam gravida commodo posuere adipiscing non ante non massa nascetur. Risus in ante accumsan eu. Non morbi.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+				</section>
+
+				<section class="item">
+					<h2>Item Three</h2>
+					<p>Amet vis lobortis vis. Accumsan adipiscing ac a. Blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis adipiscing integer faucibus nisl adipiscing vestibulum ac mi lobortis vis morbi nisi adipiscing nascetur vis ante mi adipiscing tempus erat nunc. Arcu donec vitae. Eleifend aliquam ante odio accumsan ut lorem lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus ac adipiscing praesent faucibus accumsan mi lobortis praesent praesent nibh orci.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+					<p>Enim accumsan morbi ante accumsan lorem placerat lacinia penatibus commodo ac accumsan enim adipiscing eu nibh vis augue. Aliquam adipiscing semper ut mi lobortis nunc ac praesent accumsan. Commodo placerat amet enim commodo. Amet accumsan accumsan. Risus placerat non ac adipiscing accumsan aliquet lobortis ante laoreet accumsan enim quam. Interdum condimentum aliquet lorem tempus accumsan. Accumsan blandit ut integer ante amet nunc ac ultricies ac ac adipiscing adipiscing non integer placerat justo. Semper faucibus faucibus nunc praesent. Blandit commodo in col. Iaculis aliquet ac. Ultricies orci cubilia neque massa aliquet. Faucibus ac commodo sapien massa orci enim vitae lacus accumsan commodo at. Neque a adipiscing commodo integer lobortis erat ac. Ac aliquam gravida commodo posuere adipiscing non ante non massa nascetur. Risus in ante accumsan eu. Non morbi.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+				</section>
+
+				<section class="item">
+					<h2>Item Four</h2>
+					<p>Amet vis lobortis vis. Accumsan adipiscing ac a. Blandit adipiscing varius accumsan orci lorem. Metus pellentesque amet faucibus lobortis adipiscing integer faucibus nisl adipiscing vestibulum ac mi lobortis vis morbi nisi adipiscing nascetur vis ante mi adipiscing tempus erat nunc. Arcu donec vitae. Eleifend aliquam ante odio accumsan ut lorem lobortis interdum id accumsan metus arcu suscipit enim id varius phasellus ac adipiscing praesent faucibus accumsan mi lobortis praesent praesent nibh orci.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+					<p>Enim accumsan morbi ante accumsan lorem placerat lacinia penatibus commodo ac accumsan enim adipiscing eu nibh vis augue. Aliquam adipiscing semper ut mi lobortis nunc ac praesent accumsan. Commodo placerat amet enim commodo. Amet accumsan accumsan. Risus placerat non ac adipiscing accumsan aliquet lobortis ante laoreet accumsan enim quam. Interdum condimentum aliquet lorem tempus accumsan. Accumsan blandit ut integer ante amet nunc ac ultricies ac ac adipiscing adipiscing non integer placerat justo. Semper faucibus faucibus nunc praesent. Blandit commodo in col. Iaculis aliquet ac. Ultricies orci cubilia neque massa aliquet. Faucibus ac commodo sapien massa orci enim vitae lacus accumsan commodo at. Neque a adipiscing commodo integer lobortis erat ac. Ac aliquam gravida commodo posuere adipiscing non ante non massa nascetur. Risus in ante accumsan eu. Non morbi.</p>
+					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat commodo eu sed ante lacinia. Sapien a lorem in integer ornare praesent commodo adipiscing arcu in massa commodo lorem accumsan at odio massa ac ac. Semper adipiscing varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					&copy; n33. <a href="http://github.com/n33/jquery.scrollex">MIT licensed</a>.
+				</footer>
+
+		</div>
+	</body>
+</html>
