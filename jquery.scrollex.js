@@ -199,8 +199,7 @@
 						newState = false,
 						offset = this.$element.offset(),
 						vHeight, vMiddle, vBottom,
-						eHeight, eTop, eBottom,
-						h;
+						eHeight, eTop, eBottom;
 
 					// Viewport values.
 						vHeight = $window.height();
@@ -250,7 +249,7 @@
 					options: options,
 					test: test,
 					handler: handler,
-					state: false,
+					state: null,
 					element: this,
 					$element: $this,
 					timeoutId: null
