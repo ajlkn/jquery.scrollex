@@ -3,7 +3,7 @@
 	"version": "0.2.1",
 	"description": "Nifty scroll events for jQuery.",
 	"keywords": [ "jquery", "scroll", "scrolling" ],
-	"homepage": "http://n33.co",
+	"homepage": "http://github.com/ajlkn/jquery.scrollex",
 	"license": "MIT",
 	"ignore": [ ],
 	"main": "./jquery.scrollex.js",

@@ -1,4 +1,4 @@
-/* jquery.scrollex v0.2.1 | (c) n33 | n33.co @n33co | MIT */
+/* jquery.scrollex v0.2.1 | (c) @ajlkn | github.com/ajlkn/jquery.scrollex | MIT licensed */
 
 (function($) {
 
