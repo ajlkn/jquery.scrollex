@@ -11,10 +11,10 @@
   "main": "jquery.scrollex.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/n33/jquery.scrollex.git"
+    "url": "https://github.com/ajlkn/jquery.scrollex.git"
   },
   "bugs": {
-    "url": "https://github.com/n33/jquery.scrollex/issues"
+    "url": "https://github.com/ajlkn/jquery.scrollex/issues"
   },
   "license": "MIT",
   "engines": {
